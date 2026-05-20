@@ -29,23 +29,9 @@ COPY --from=builder /app/apps/web/.next/standalone ./
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=builder /app/apps/web/public ./apps/web/public
 
-# Copy migrations and the tsx/migrate scripts so we can run them at startup.
-COPY --from=builder /app/apps/web/src/db/migrations ./apps/web/src/db/migrations
-COPY --from=builder /app/apps/web/src/db/migrate.ts ./apps/web/src/db/migrate.ts
-COPY --from=builder /app/apps/web/src/db/seed/bootstrap.ts ./apps/web/src/db/seed/bootstrap.ts
-
-# Include drizzle-orm + postgres + tsx for the migration step (won't ship in
-# standalone by default since they're only used by scripts, not by pages).
-COPY --from=deps /app/node_modules/drizzle-orm ./node_modules/drizzle-orm
-COPY --from=deps /app/node_modules/postgres ./node_modules/postgres
-COPY --from=deps /app/node_modules/tsx ./node_modules/tsx
-COPY --from=deps /app/node_modules/esbuild ./node_modules/esbuild
-COPY --from=deps /app/node_modules/get-tsconfig ./node_modules/get-tsconfig
-COPY --from=deps /app/node_modules/resolve-pkg-maps ./node_modules/resolve-pkg-maps
-
 EXPOSE 3000
 
-# A tiny startup script: run migrations then start the server.
-RUN printf '#!/bin/sh\nset -e\necho "[startup] running migrations…"\nnpx tsx apps/web/src/db/migrate.ts\necho "[startup] starting server on :${PORT}"\nexec node apps/web/server.js\n' > /app/start.sh && chmod +x /app/start.sh
-
-CMD ["/app/start.sh"]
+# Migrations are run by CI (the deploy workflow has a `Bootstrap` step that
+# applies them against the live Postgres before traffic shifts to the new
+# revision). The container just runs the server.
+CMD ["node", "apps/web/server.js"]
