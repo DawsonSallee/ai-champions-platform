@@ -1,0 +1,57 @@
+%%{init: {'theme':'base', 'themeVariables': {
+  'primaryColor':'#eef2ff',
+  'primaryTextColor':'#0a0a0a',
+  'primaryBorderColor':'#4f46e5',
+  'lineColor':'#64748b',
+  'fontSize':'14px',
+  'fontFamily':'Segoe UI'
+}}}%%
+flowchart TB
+    classDef user fill:#fef3c7,stroke:#d97706,color:#92400e
+    classDef azure fill:#dbeafe,stroke:#1d4ed8,color:#1e3a8a
+    classDef app fill:#e0e7ff,stroke:#4f46e5,color:#3730a3,font-weight:bold
+    classDef data fill:#cffafe,stroke:#0891b2,color:#155e75
+    classDef secret fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef ci fill:#1f2937,stroke:#111827,color:#f9fafb
+
+    User["👤 Champions / Reviewers /<br/>AI Team / Admin"]:::user
+
+    subgraph Entra ["🔐 Microsoft Entra ID"]
+      direction TB
+      SSO["SSO + App roles"]:::azure
+      FedCred["Federated credential<br/>(GitHub Actions OIDC)"]:::azure
+    end
+
+    subgraph RG ["📦 Azure Resource Group · ai-champions-rg"]
+      subgraph CAE ["Container Apps Environment · aichamp-dev-env"]
+        App["🚀 Container App<br/>aichamp-dev-app<br/>Next.js 15<br/>0.5 vCPU · 1 GiB · scale 1–3"]:::app
+      end
+      PG[("🗄 PostgreSQL<br/>Flexible Server · B1ms")]:::data
+      Blob[("📁 Blob Storage<br/>artifacts container")]:::data
+      KV[("🔑 Key Vault<br/>secrets")]:::secret
+      AppI["📊 App Insights"]:::azure
+      Log["📜 Log Analytics"]:::azure
+    end
+
+    subgraph GitHub ["💻 GitHub"]
+      Repo["DawsonSallee/<br/>ai-champions-platform"]:::ci
+      Actions["GitHub Actions<br/>build · push · deploy"]:::ci
+      GHCR["ghcr.io<br/>public package"]:::ci
+    end
+
+    User -- "1\. HTTPS" --> App
+    User -- "2\. sign in" --> SSO
+    SSO -- "ID token" --> App
+    App -- "queries / writes" --> PG
+    App -- "uploads" --> Blob
+    App -- "secret refs" --> KV
+    App -- "telemetry" --> AppI
+    App -- "container logs" --> Log
+    AppI --> Log
+
+    Repo --> Actions
+    Actions -- "build image" --> GHCR
+    Actions -- "OIDC token" --> FedCred
+    FedCred -- "short-lived Azure token" --> Actions
+    Actions -- "Bicep apply" --> RG
+    GHCR -- "pull image" --> App

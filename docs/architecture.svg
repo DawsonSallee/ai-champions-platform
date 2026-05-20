@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" font-family="Segoe UI, -apple-system, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#eef2f8"/>
+    </linearGradient>
+    <linearGradient id="appGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+    <linearGradient id="azureGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0078d4"/>
+      <stop offset="100%" stop-color="#005a9e"/>
+    </linearGradient>
+    <linearGradient id="dataGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="securityGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="ghGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#24292e"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0a0a0a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0078d4"/>
+    </marker>
+    <marker id="arrowBrand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4f46e5"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="900" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="700" y="50" text-anchor="middle" font-size="26" font-weight="700" fill="#0a0a0a" letter-spacing="-0.5">
+    AI Champions Platform — Architecture
+  </text>
+  <text x="700" y="75" text-anchor="middle" font-size="13" fill="#64748b">
+    Next.js on Azure Container Apps · OIDC-based CI/CD · Single resource group
+  </text>
+
+  <!-- Users -->
+  <g transform="translate(70, 130)">
+    <rect width="180" height="120" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1" filter="url(#shadow)"/>
+    <text x="90" y="28" text-anchor="middle" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">USERS</text>
+    <g transform="translate(20, 45)">
+      <circle cx="12" cy="12" r="10" fill="#4f46e5"/>
+      <text x="32" y="16" font-size="12" fill="#0a0a0a">Champions</text>
+    </g>
+    <g transform="translate(20, 70)">
+      <circle cx="12" cy="12" r="10" fill="#0ea5e9"/>
+      <text x="32" y="16" font-size="12" fill="#0a0a0a">Reviewers</text>
+    </g>
+    <g transform="translate(20, 95)">
+      <circle cx="12" cy="12" r="10" fill="#10b981"/>
+      <text x="32" y="16" font-size="12" fill="#0a0a0a">AI Team / Admin</text>
+    </g>
+  </g>
+
+  <!-- Entra ID -->
+  <g transform="translate(70, 290)">
+    <rect width="180" height="100" rx="12" fill="url(#azureGrad)" filter="url(#shadow)"/>
+    <text x="90" y="28" text-anchor="middle" font-size="11" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="0.5">IDENTITY</text>
+    <text x="90" y="55" text-anchor="middle" font-size="14" font-weight="700" fill="white">Microsoft Entra ID</text>
+    <text x="90" y="75" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">SSO · App roles</text>
+    <text x="90" y="90" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">OIDC federation</text>
+  </g>
+
+  <!-- Resource Group boundary -->
+  <g transform="translate(320, 110)">
+    <rect width="900" height="640" rx="20" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6"/>
+    <rect x="20" y="-15" width="280" height="30" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+    <text x="35" y="5" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">AZURE RESOURCE GROUP</text>
+    <text x="35" y="22" font-size="13" font-weight="700" fill="#0a0a0a">ai-champions-rg</text>
+  </g>
+
+  <!-- Container Apps Environment -->
+  <g transform="translate(360, 160)">
+    <rect width="500" height="270" rx="14" fill="white" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="20" y="28" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">CONTAINER APPS ENVIRONMENT</text>
+    <text x="20" y="46" font-size="13" font-weight="700" fill="#0a0a0a">aichamp-dev-env</text>
+
+    <!-- Container App -->
+    <g transform="translate(60, 75)">
+      <rect width="380" height="170" rx="12" fill="url(#appGrad)" filter="url(#shadow)"/>
+      <text x="190" y="32" text-anchor="middle" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="0.5">CONTAINER APP</text>
+      <text x="190" y="60" text-anchor="middle" font-size="18" font-weight="700" fill="white">aichamp-dev-app</text>
+      <text x="190" y="82" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.9)">Next.js 15 · App Router · TS</text>
+      <line x1="60" y1="100" x2="320" y2="100" stroke="rgba(255,255,255,0.25)"/>
+      <text x="190" y="120" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.95)">0.5 vCPU · 1 GiB · scale 1–3</text>
+      <text x="190" y="138" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Pulls from ghcr.io · Public HTTPS</text>
+      <text x="190" y="156" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Health probe at /api/health</text>
+    </g>
+  </g>
+
+  <!-- Data services -->
+  <g transform="translate(360, 450)">
+    <text x="0" y="0" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">DATA &amp; SECRETS</text>
+
+    <!-- Postgres -->
+    <g transform="translate(0, 15)">
+      <rect width="150" height="120" rx="12" fill="url(#dataGrad)" filter="url(#shadow)"/>
+      <text x="75" y="28" text-anchor="middle" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="0.5">DATABASE</text>
+      <text x="75" y="52" text-anchor="middle" font-size="14" font-weight="700" fill="white">Postgres</text>
+      <text x="75" y="70" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">Flexible Server</text>
+      <text x="75" y="86" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">B1ms · 32 GiB</text>
+      <text x="75" y="102" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">centralus</text>
+    </g>
+
+    <!-- Blob -->
+    <g transform="translate(170, 15)">
+      <rect width="150" height="120" rx="12" fill="url(#dataGrad)" filter="url(#shadow)"/>
+      <text x="75" y="28" text-anchor="middle" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="0.5">FILES</text>
+      <text x="75" y="52" text-anchor="middle" font-size="14" font-weight="700" fill="white">Blob Storage</text>
+      <text x="75" y="70" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">Standard_LRS</text>
+      <text x="75" y="86" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Soft-delete 30d</text>
+      <text x="75" y="102" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">artifacts/</text>
+    </g>
+
+    <!-- Key Vault -->
+    <g transform="translate(340, 15)">
+      <rect width="150" height="120" rx="12" fill="url(#securityGrad)" filter="url(#shadow)"/>
+      <text x="75" y="28" text-anchor="middle" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="0.5">SECRETS</text>
+      <text x="75" y="52" text-anchor="middle" font-size="14" font-weight="700" fill="white">Key Vault</text>
+      <text x="75" y="70" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">RBAC-auth</text>
+      <text x="75" y="86" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">7d soft-delete</text>
+      <text x="75" y="102" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)">Backups + creds</text>
+    </g>
+  </g>
+
+  <!-- Monitor -->
+  <g transform="translate(900, 160)">
+    <rect width="280" height="270" rx="14" fill="white" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="20" y="28" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">OBSERVABILITY</text>
+
+    <g transform="translate(40, 60)">
+      <rect width="200" height="80" rx="10" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="100" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">App Insights</text>
+      <text x="100" y="50" text-anchor="middle" font-size="11" fill="#92400e">request traces · errors</text>
+      <text x="100" y="66" text-anchor="middle" font-size="11" fill="#92400e">aichamp-dev-appi</text>
+    </g>
+
+    <g transform="translate(40, 160)">
+      <rect width="200" height="80" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="100" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">Log Analytics</text>
+      <text x="100" y="50" text-anchor="middle" font-size="11" fill="#1e40af">container logs · queries</text>
+      <text x="100" y="66" text-anchor="middle" font-size="11" fill="#1e40af">30d retention</text>
+    </g>
+  </g>
+
+  <!-- CI/CD lane (GitHub) -->
+  <g transform="translate(360, 620)">
+    <rect width="500" height="100" rx="14" fill="url(#ghGrad)" filter="url(#shadow)"/>
+    <text x="20" y="28" font-size="11" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">CI / CD</text>
+    <g transform="translate(20, 40)">
+      <circle cx="20" cy="20" r="18" fill="white"/>
+      <text x="20" y="26" text-anchor="middle" font-size="20" fill="#0d1117">⌥</text>
+      <text x="50" y="20" font-size="13" font-weight="700" fill="white">GitHub Actions</text>
+      <text x="50" y="38" font-size="11" fill="rgba(255,255,255,0.8)">build · push · migrate · deploy</text>
+    </g>
+    <g transform="translate(220, 40)">
+      <rect width="80" height="36" rx="6" fill="#374151"/>
+      <text x="40" y="22" text-anchor="middle" font-size="12" font-weight="600" fill="white">ghcr.io</text>
+    </g>
+    <text x="320" y="62" font-size="11" fill="rgba(255,255,255,0.7)">public package · anonymous pull</text>
+    <g transform="translate(380, 40)">
+      <rect width="100" height="36" rx="6" fill="#10b981"/>
+      <text x="50" y="22" text-anchor="middle" font-size="12" font-weight="600" fill="white">OIDC → Azure</text>
+    </g>
+  </g>
+
+  <!-- Arrows -->
+  <!-- User → Entra -->
+  <line x1="160" y1="250" x2="160" y2="285" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="170" y="272" font-size="10" fill="#64748b">1. sign in</text>
+
+  <!-- Entra → App -->
+  <path d="M250 340 Q 320 340 360 245" fill="none" stroke="#0078d4" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="270" y="305" font-size="10" fill="#0078d4">2. ID token</text>
+
+  <!-- User → App (direct browse) -->
+  <path d="M250 180 Q 320 180 360 220" fill="none" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrowBrand)"/>
+  <text x="280" y="170" font-size="10" fill="#4f46e5">HTTPS</text>
+
+  <!-- App → Postgres -->
+  <line x1="455" y1="430" x2="455" y2="460" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- App → Blob -->
+  <line x1="595" y1="430" x2="595" y2="460" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- App → KV -->
+  <line x1="755" y1="430" x2="755" y2="460" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- App → Monitor -->
+  <line x1="860" y1="295" x2="900" y2="295" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="862" y="288" font-size="10" fill="#64748b">logs</text>
+
+  <!-- GitHub Actions → Container App -->
+  <path d="M610 620 Q 610 540 580 430" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+  <text x="630" y="525" font-size="10" fill="#059669">3. deploy new image</text>
+
+  <!-- Caption / legend -->
+  <g transform="translate(70, 470)">
+    <rect width="220" height="200" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1" filter="url(#shadow)"/>
+    <text x="20" y="28" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">FLOW</text>
+    <g font-size="11" fill="#0a0a0a">
+      <text x="20" y="55"><tspan font-weight="700">1.</tspan> User visits the app URL</text>
+      <text x="20" y="78"><tspan font-weight="700">2.</tspan> Bounced to Entra ID;</text>
+      <text x="32" y="93">signs in with corporate account</text>
+      <text x="20" y="116"><tspan font-weight="700">3.</tspan> Container App handles the</text>
+      <text x="32" y="131">request, talks to Postgres /</text>
+      <text x="32" y="146">Blob / Key Vault as needed</text>
+      <text x="20" y="170"><tspan font-weight="700">4.</tspan> Logs &amp; traces stream to</text>
+      <text x="32" y="185">App Insights + Log Analytics</text>
+    </g>
+  </g>
+
+  <g transform="translate(70, 700)">
+    <rect width="220" height="170" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1" filter="url(#shadow)"/>
+    <text x="20" y="28" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">DEPLOY</text>
+    <g font-size="11" fill="#0a0a0a">
+      <text x="20" y="55">Push to <tspan font-family="ui-monospace,monospace" fill="#475569">main</tspan> triggers:</text>
+      <text x="32" y="78">• Docker build</text>
+      <text x="32" y="96">• Push to ghcr.io</text>
+      <text x="32" y="114">• Federated OIDC to Azure</text>
+      <text x="32" y="132">• Bicep apply</text>
+      <text x="32" y="150">• DB migrations + bootstrap</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <text x="700" y="880" text-anchor="middle" font-size="10" fill="#94a3b8">
+    Generated from infra/main.bicep · Bicep is the source of truth · Drizzle ORM · NextAuth (Microsoft Entra ID provider)
+  </text>
+</svg>
