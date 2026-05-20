@@ -1,5 +1,8 @@
 # AI Champions Platform
 
+> 🌐 **Live demo:** **https://aichamp-dev-app.orangeglacier-5bb9312f.eastus2.azurecontainerapps.io**
+> Health probe: [`/api/health`](https://aichamp-dev-app.orangeglacier-5bb9312f.eastus2.azurecontainerapps.io/api/health) · Dashboard: [`/dashboard`](https://aichamp-dev-app.orangeglacier-5bb9312f.eastus2.azurecontainerapps.io/dashboard)
+
 Custom full-stack replacement for the SharePoint + Excel + Power BI +
 ITSM-routing stack that powers the AI Champions Program today.
 
@@ -7,8 +10,9 @@ ITSM-routing stack that powers the AI Champions Program today.
 Tailwind · Microsoft Entra ID via NextAuth · Azure Blob (or local FS) ·
 Microsoft Graph send-as (or SMTP / log) · @react-pdf/renderer · Bicep IaC
 
-**Architecture:** see [`Custom_Platform_Plan.md`](../Custom_Platform_Plan.md)
-**For coding agents:** see [`CLAUDE.md`](./CLAUDE.md)
+**Architecture diagrams:** [`docs/architecture.svg`](./docs/architecture.svg) · [`docs/architecture-technical.svg`](./docs/architecture-technical.svg)
+**Deployment guide:** [`docs/DEPLOY.md`](./docs/DEPLOY.md)
+**For coding agents:** [`CLAUDE.md`](./CLAUDE.md)
 
 ---
 
