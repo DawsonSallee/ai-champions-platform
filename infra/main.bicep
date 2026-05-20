@@ -7,8 +7,11 @@
 @description('Short environment name: dev | stage | prod')
 param environmentName string = 'dev'
 
-@description('Azure region for all resources.')
+@description('Azure region for most resources.')
 param location string = resourceGroup().location
+
+@description('Region for Postgres (sometimes a different region is required due to per-region quotas).')
+param dbLocation string = resourceGroup().location
 
 @description('Postgres administrator login.')
 param dbAdminLogin string = 'pgadmin'
@@ -101,7 +104,7 @@ resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
 // ─── PostgreSQL Flexible Server (Burstable) ────────────────────────────────
 resource pg 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01-preview' = {
   name: '${namePrefix}-pg'
-  location: location
+  location: dbLocation
   sku: { name: 'Standard_B1ms', tier: 'Burstable' }
   properties: {
     administratorLogin: dbAdminLogin
