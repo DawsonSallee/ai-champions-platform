@@ -56,15 +56,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-// ─── Container Registry ────────────────────────────────────────────────────
-resource acr 'Microsoft.ContainerRegistry/registries@2023-07-01' = {
-  name: replace('${namePrefix}acr', '-', '')
-  location: location
-  sku: { name: 'Basic' }
-  properties: {
-    adminUserEnabled: true
-  }
-}
+// (Container image is pulled from ghcr.io as a public package — no ACR.)
 
 // ─── Storage (Blob) ────────────────────────────────────────────────────────
 resource storage 'Microsoft.Storage/storageAccounts@2023-04-01' = {
@@ -171,13 +163,7 @@ resource app 'Microsoft.App/containerApps@2024-03-01' = {
           { latestRevision: true, weight: 100 }
         ]
       }
-      registries: [
-        {
-          server: acr.properties.loginServer
-          username: acr.listCredentials().username
-          passwordSecretRef: 'acr-password'
-        }
-      ]
+      // Container image is pulled from public ghcr.io — no registry auth.
       secrets: [
         {
           name: 'database-url'
@@ -185,7 +171,6 @@ resource app 'Microsoft.App/containerApps@2024-03-01' = {
         }
         { name: 'auth-secret', value: authSecret }
         { name: 'entra-client-secret', value: entraClientSecret }
-        { name: 'acr-password', value: acr.listCredentials().passwords[0].value }
       ]
     }
     template: {
@@ -229,7 +214,5 @@ output appUrl string = 'https://${app.properties.configuration.ingress.fqdn}'
 output databaseFqdn string = pg.properties.fullyQualifiedDomainName
 output keyVaultName string = kv.name
 output storageAccountName string = storage.name
-output containerRegistry string = acr.properties.loginServer
-output containerRegistryName string = acr.name
 output appInsightsConnectionString string = appInsights.properties.ConnectionString
 output containerAppName string = app.name

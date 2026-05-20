@@ -48,6 +48,16 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Make the package public (so Container Apps can pull anonymously)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Find the user's package and set visibility=public.
+          PKG_NAME=$(echo "${{ github.repository }}" | cut -d/ -f2)
+          gh api -X PATCH "/user/packages/container/${PKG_NAME}" \
+            -f visibility=public 2>&1 || \
+            echo "Package may already be public or not yet visible — continuing."
+
       # ─── Deploy via Bicep ─────────────────────────────────────────────
       - name: Azure login (OIDC)
         uses: azure/login@v2
