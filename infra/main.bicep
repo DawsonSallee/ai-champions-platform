@@ -103,7 +103,7 @@ resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
 
 // ─── PostgreSQL Flexible Server (Burstable) ────────────────────────────────
 resource pg 'Microsoft.DBforPostgreSQL/flexibleServers@2023-06-01-preview' = {
-  name: '${namePrefix}-db'
+  name: '${namePrefix}-db-cu'
   location: dbLocation
   sku: { name: 'Standard_B1ms', tier: 'Burstable' }
   properties: {
