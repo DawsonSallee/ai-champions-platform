@@ -83,7 +83,7 @@ jobs:
 
       - name: Bootstrap reference data (idempotent)
         run: |
-          DB_FQDN=$(az postgres flexible-server show -g ${{ secrets.AZURE_RESOURCE_GROUP }} -n aichamp-dev-pg --query fullyQualifiedDomainName -o tsv)
+          DB_FQDN=$(az postgres flexible-server show -g ${{ secrets.AZURE_RESOURCE_GROUP }} -n aichamp-dev-db --query fullyQualifiedDomainName -o tsv)
           export DATABASE_URL="postgres://pgadmin:${{ secrets.DB_PASSWORD }}@${DB_FQDN}:5432/ai_champions?sslmode=require"
           npm ci
           npm run db:migrate
