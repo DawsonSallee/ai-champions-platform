@@ -27,7 +27,7 @@ ENV HOSTNAME=0.0.0.0
 # With monorepo (apps/web), it lives at apps/web/.next/standalone/.
 COPY --from=builder /app/apps/web/.next/standalone ./
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=builder /app/apps/web/public ./apps/web/public 2>/dev/null || true
+COPY --from=builder /app/apps/web/public ./apps/web/public
 
 # Copy migrations and the tsx/migrate scripts so we can run them at startup.
 COPY --from=builder /app/apps/web/src/db/migrations ./apps/web/src/db/migrations
