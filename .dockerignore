@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.pgdata
+.storage
+*.log
+.env
+.env.*
+!.env.example
+README.md
+docs
+infra
+.github
+.vscode
+.idea

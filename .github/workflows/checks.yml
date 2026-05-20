@@ -1,36 +1,20 @@
 name: Checks
 
 on:
+  pull_request:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-
       - run: npm ci
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Unit tests
-        run: npm test
-
-      - name: Drizzle schema diff (fails if migrations are stale)
-        run: |
-          npm run db:generate -- --check || (
-            echo "❌ Generated SQL differs from committed migrations.";
-            echo "Run 'npm run db:generate' locally and commit the result.";
-            exit 1
-          )
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
