@@ -73,6 +73,7 @@ jobs:
           template: infra/main.bicep
           parameters: >-
             environmentName=dev
+            dbLocation=eastus
             entraClientId=${{ secrets.AZURE_CLIENT_ID }}
             entraClientSecret=${{ secrets.ENTRA_CLIENT_SECRET }}
             dbAdminPassword=${{ secrets.DB_PASSWORD }}
