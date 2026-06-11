@@ -54,7 +54,7 @@ export function ItAssessmentForm({
   }
 
   return (
-    <div className="card p-5 space-y-5 text-sm">
+    <div className="v3-card v3-card-pad space-y-5 text-sm">
       <Group label="Data classification">
         <Pills
           value={state.dataClassification}
@@ -65,14 +65,14 @@ export function ItAssessmentForm({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Data flow — from">
           <input
-            className="input"
+            className="v3-input"
             value={state.dataFlowFrom ?? ""}
             onChange={(e) => update("dataFlowFrom", e.target.value)}
           />
         </Field>
         <Field label="Data flow — to">
           <input
-            className="input"
+            className="v3-input"
             value={state.dataFlowTo ?? ""}
             onChange={(e) => update("dataFlowTo", e.target.value)}
           />
@@ -80,7 +80,7 @@ export function ItAssessmentForm({
         <Field label="Records per day">
           <input
             type="number"
-            className="input"
+            className="v3-input"
             value={state.recordsPerDay ?? ""}
             onChange={(e) =>
               update("recordsPerDay", e.target.value === "" ? undefined : Number(e.target.value))
@@ -89,28 +89,28 @@ export function ItAssessmentForm({
         </Field>
         <Field label="Tooling type">
           <input
-            className="input"
+            className="v3-input"
             value={state.toolingType ?? ""}
             onChange={(e) => update("toolingType", e.target.value)}
           />
         </Field>
         <Field label="Hosting location">
           <input
-            className="input"
+            className="v3-input"
             value={state.hostingLocation ?? ""}
             onChange={(e) => update("hostingLocation", e.target.value)}
           />
         </Field>
         <Field label="Auth method">
           <input
-            className="input"
+            className="v3-input"
             value={state.authMethod ?? ""}
             onChange={(e) => update("authMethod", e.target.value)}
           />
         </Field>
         <Field label="LLM source">
           <input
-            className="input"
+            className="v3-input"
             placeholder="Azure OpenAI / OpenAI / Anthropic / Internal / none"
             value={state.llmSource ?? ""}
             onChange={(e) => update("llmSource", e.target.value)}
@@ -152,7 +152,7 @@ export function ItAssessmentForm({
           Saved.
         </div>
       )}
-      <button onClick={submit} disabled={pending} className="btn-primary">
+      <button onClick={submit} disabled={pending} className="v3-btn-primary">
         {pending ? "Saving…" : "Save assessment"}
       </button>
     </div>
@@ -168,7 +168,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <div className="label mb-1">{label}</div>
+      <div className="v3-label-uc mb-1">{label}</div>
       {children}
     </label>
   );
@@ -183,7 +183,7 @@ function Group({
 }) {
   return (
     <div>
-      <div className="label mb-2">{label}</div>
+      <div className="v3-label-uc mb-2">{label}</div>
       {children}
     </div>
   );
@@ -205,11 +205,7 @@ function Pills({
           key={o}
           type="button"
           onClick={() => onChange(o)}
-          className={`pill ${
-            value === o
-              ? "bg-brand text-brand-fg"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
+          className={`v3-chip${value === o ? " active" : ""}`}
         >
           {o}
         </button>

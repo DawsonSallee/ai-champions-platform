@@ -86,67 +86,71 @@ export default async function GovernancePage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold tracking-tight">Governance</h1>
+      <header className="v3-page-header" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">Governance</h1>
+      </header>
 
       {!result.ok && <DbDownBanner message={result.error} />}
 
       {result.ok && result.value.length === 0 ? (
-        <div className="card p-12 text-center text-sm text-ink-subtle">
-          No projects are currently awaiting review.
+        <div className="v3-empty">
+          <div className="icon">✓</div>
+          <div className="msg">Nothing awaiting review</div>
+          <div className="sub">No projects are currently in an approval gate.</div>
         </div>
       ) : (
-        <div className="card overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-surface-subtle text-left text-[11px] uppercase tracking-wider text-ink-subtle">
+        <div className="v3-card" style={{ overflow: "hidden" }}>
+          <table className="v3-data-table">
+            <thead>
               <tr>
-                <th className="px-4 py-3">Project</th>
-                <th className="px-4 py-3">Tier</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Gate</th>
-                <th className="px-4 py-3">Champion</th>
-                <th className="px-4 py-3 text-right">Reviewers</th>
-                <th className="px-4 py-3 text-right">SLA due</th>
+                <th>Project</th>
+                <th>Tier</th>
+                <th>Status</th>
+                <th>Gate</th>
+                <th>Champion</th>
+                <th className="r">Reviewers</th>
+                <th className="r">SLA due</th>
               </tr>
             </thead>
             <tbody>
               {result.ok &&
                 result.value.map((p) => (
-                  <tr
-                    key={p.projectId}
-                    className="border-t border-surface-divider hover:bg-surface-subtle"
-                  >
-                    <td className="px-4 py-3">
+                  <tr key={p.projectId} className="row">
+                    <td data-label="Project" className="cell-title">
                       <Link
                         href={`/projects/${p.projectId}?tab=approvals`}
-                        className="font-medium text-ink hover:text-brand"
+                        className="v3-row-title"
                       >
                         {p.title}
                       </Link>
                     </td>
-                    <td className="px-4 py-3">
+                    <td data-label="Tier">
                       <TierBadge tier={p.tier} />
                     </td>
-                    <td className="px-4 py-3">
+                    <td data-label="Status">
                       <StatusBadge status={p.status} />
                     </td>
-                    <td className="px-4 py-3 text-ink-muted">
+                    <td data-label="Gate" className="v3-muted">
                       {p.currentGate ?? "—"}
                     </td>
-                    <td className="px-4 py-3 text-ink-muted">
+                    <td data-label="Champion" className="v3-muted">
                       {p.championName ?? "—"}
                     </td>
-                    <td className="px-4 py-3 text-right text-ink-muted tabular-nums">
+                    <td data-label="Reviewers" className="r">
                       {p.decidedReviewers} / {p.totalReviewers}
                     </td>
                     <td
-                      className={`px-4 py-3 text-right tabular-nums ${
+                      data-label="SLA due"
+                      className="r"
+                      style={
                         p.anyOverdue
-                          ? "font-semibold text-rose-700"
-                          : "text-ink-muted"
-                      }`}
+                          ? { fontWeight: 600, color: "#be123c" }
+                          : undefined
+                      }
                     >
                       {formatDate(p.soonestSla)}
                       {p.anyOverdue ? " · Overdue" : ""}
+                      <span className="row-arrow">→</span>
                     </td>
                   </tr>
                 ))}

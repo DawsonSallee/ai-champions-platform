@@ -108,7 +108,7 @@ export function ConciergeChat() {
       </div>
       <div className="border-t border-surface-border p-2 flex gap-2">
         <input
-          className="input flex-1"
+          className="v3-input flex-1"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
@@ -116,7 +116,7 @@ export function ConciergeChat() {
           }}
           placeholder="Ask about tiers, ROI, approvals…"
         />
-        <button onClick={send} disabled={pending} className="btn-primary">
+        <button onClick={send} disabled={pending} className="v3-btn-primary">
           Send
         </button>
       </div>

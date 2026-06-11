@@ -5,13 +5,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand — modern indigo, less corporate than the previous navy.
+        // Brand — burgundy (matches the v3 design system accent in site.css).
         brand: {
-          DEFAULT: "#4f46e5", // indigo-600
-          hover: "#4338ca",
+          DEFAULT: "#7c2d2d",
+          hover: "#6b2424",
           fg: "#ffffff",
-          subtle: "#eef2ff",
-          ring: "#c7d2fe",
+          subtle: "#fbf2f2",
+          ring: "#e7c9c9",
         },
         // Refined neutral palette — closer to Linear/Vercel than default gray.
         ink: {
@@ -35,7 +35,7 @@ export default {
       },
       fontFamily: {
         sans: [
-          "var(--font-inter)",
+          "var(--font-sans)",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",

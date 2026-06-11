@@ -42,7 +42,7 @@ export function StatusActions({
           key={t}
           onClick={() => go(t)}
           disabled={pending}
-          className="rounded-md border border-surface-border bg-surface px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-surface-subtle hover:text-gray-900"
+          className="v3-btn-outline v3-btn-sm"
         >
           → {statusLabel(t)}
         </button>

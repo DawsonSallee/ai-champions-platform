@@ -29,7 +29,7 @@ export function ApprovalDecision({ approvalId }: { approvalId: string }) {
   return (
     <div className="space-y-2">
       <textarea
-        className="input"
+        className="v3-input"
         rows={2}
         placeholder="Optional comment (visible to the champion)"
         value={comment}

@@ -41,46 +41,65 @@ export default async function AppStorePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">App Store</h1>
-        <div className="text-xs text-gray-500">
+      <header className="v3-page-header flex items-end justify-between" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">App Store</h1>
+        <div className="v3-muted mono" style={{ fontSize: 12 }}>
           {result.ok ? result.value.length : 0} live solutions
         </div>
-      </div>
+      </header>
 
       {!result.ok && <DbDownBanner message={result.error} />}
 
       {result.ok && result.value.length === 0 ? (
-        <div className="card p-12 text-center text-sm text-gray-500">
-          No completed solutions yet.
+        <div className="v3-empty">
+          <div className="icon">⚇</div>
+          <div className="msg">No completed solutions yet</div>
+          <div className="sub">Projects appear here once they reach Completed.</div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="v3-sources-grid">
           {result.ok &&
             result.value.map(({ project, buCode, annualSavingsUsd }) => (
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
-                className="card flex flex-col gap-3 p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                className="v3-source-card"
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
               >
                 <div className="flex items-start justify-between">
-                  <div className="h-10 w-10 rounded-md bg-brand text-brand-fg grid place-items-center text-lg font-bold">
+                  <div
+                    className="grid place-items-center"
+                    style={{
+                      height: 40,
+                      width: 40,
+                      borderRadius: 8,
+                      background: "var(--a)",
+                      color: "var(--a-fg)",
+                      fontSize: 18,
+                      fontWeight: 700,
+                    }}
+                  >
                     {project.title.slice(0, 1)}
                   </div>
                   <TierBadge tier={project.complexityTier} />
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">
-                    {project.title}
-                  </div>
-                  <p className="mt-1 line-clamp-3 text-sm text-gray-600">
+                  <div className="name">{project.title}</div>
+                  <p className="desc line-clamp-3">
                     {project.summaryPitch ?? project.problemStatement ?? ""}
                   </p>
                 </div>
-                <div className="mt-auto flex items-center justify-between border-t border-surface-border pt-3 text-xs">
-                  <span className="text-gray-500">{buCode ?? "—"}</span>
+                <div
+                  className="meta"
+                  style={{
+                    marginTop: "auto",
+                    borderTop: "1px solid var(--hairline)",
+                    paddingTop: 12,
+                  }}
+                >
+                  <span>{buCode ?? "—"}</span>
                   {annualSavingsUsd ? (
-                    <span className="font-medium text-gray-900">
+                    <span className="mono" style={{ color: "var(--ink)", fontWeight: 600 }}>
                       {formatUsd(annualSavingsUsd)}/yr
                     </span>
                   ) : null}

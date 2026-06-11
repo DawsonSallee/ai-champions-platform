@@ -90,9 +90,9 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-      </div>
+      <header className="v3-page-header" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">Dashboard</h1>
+      </header>
 
       {dbError && <DbDownBanner message={dbError} />}
 
@@ -154,30 +154,27 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
         <Card title="Champion leaderboard" className="lg:col-span-3">
           {leaderboard.ok && leaderboard.value.length > 0 ? (
-            <table className="w-full text-sm">
-              <thead className="text-left text-xs uppercase tracking-wider text-gray-500">
+            <table className="v3-data-table">
+              <thead>
                 <tr>
-                  <th className="py-2 w-8">#</th>
-                  <th className="py-2">Champion</th>
-                  <th className="py-2 text-right">Projects</th>
-                  <th className="py-2 text-right">Completed</th>
-                  <th className="py-2 text-right">Annualized $</th>
+                  <th style={{ width: 32 }}>#</th>
+                  <th>Champion</th>
+                  <th className="r">Projects</th>
+                  <th className="r">Completed</th>
+                  <th className="r">Annualized $</th>
                 </tr>
               </thead>
               <tbody>
                 {leaderboard.value.map((row, i) => (
-                  <tr
-                    key={row.userId}
-                    className="border-t border-surface-border"
-                  >
-                    <td className="py-2 text-gray-400">{i + 1}</td>
-                    <td className="py-2">
-                      <div className="font-medium">{row.displayName}</div>
-                      <div className="text-xs text-gray-500">{row.email}</div>
+                  <tr key={row.userId}>
+                    <td className="v3-muted-2">{i + 1}</td>
+                    <td>
+                      <div className="v3-row-title">{row.displayName}</div>
+                      <div className="v3-row-sub">{row.email}</div>
                     </td>
-                    <td className="py-2 text-right">{row.projectCount}</td>
-                    <td className="py-2 text-right">{row.completed}</td>
-                    <td className="py-2 text-right font-medium">
+                    <td className="r">{row.projectCount}</td>
+                    <td className="r">{row.completed}</td>
+                    <td className="r" style={{ fontWeight: 600 }}>
                       {formatUsd(row.totalSavings)}
                     </td>
                   </tr>
@@ -201,29 +198,26 @@ export default async function DashboardPage() {
                   <li key={a.id} className="flex items-start gap-3">
                     <ActionDot action={a.action} />
                     <div className="flex-1">
-                      <div className="text-gray-900">
-                        <span className="font-medium">
+                      <div style={{ color: "var(--ink)" }}>
+                        <span style={{ fontWeight: 500 }}>
                           {a.actorName ?? "System"}
                         </span>{" "}
-                        <span className="text-gray-600">
+                        <span className="v3-muted">
                           {actionLabel(a.action).toLowerCase()}
                         </span>{" "}
-                        <span className="text-gray-600">
+                        <span className="v3-muted">
                           {a.entityType === "project" ? "project" : a.entityType}
                         </span>
                         {title ? (
                           <>
                             {" "}
-                            <Link
-                              href={`/projects/${a.entityId}`}
-                              className="font-medium text-brand hover:underline"
-                            >
+                            <Link href={`/projects/${a.entityId}`} className="link">
                               {title}
                             </Link>
                           </>
                         ) : null}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="v3-muted" style={{ fontSize: 11.5 }}>
                         {formatRelative(a.occurredAt)}
                       </div>
                     </div>
@@ -252,14 +246,12 @@ function Card({
   className?: string;
 }) {
   return (
-    <section className={`card p-5 ${className}`}>
-      <div className="flex items-baseline justify-between">
-        <h2 className="text-sm font-semibold text-gray-900">{title}</h2>
-        {subtitle && (
-          <span className="text-xs text-gray-500">{subtitle}</span>
-        )}
+    <section className={`v3-card v3-card-pad ${className}`}>
+      <div className="v3-section-header">
+        <h2>{title}</h2>
+        {subtitle && <span className="count">{subtitle}</span>}
       </div>
-      <div className="mt-4">{children}</div>
+      <div>{children}</div>
     </section>
   );
 }
@@ -276,12 +268,17 @@ function Kpi({
   warn?: boolean;
 }) {
   return (
-    <div className="card p-4">
-      <div className="text-xs uppercase tracking-wider text-gray-500">{label}</div>
+    <div className="v3-kpi">
+      <div className="v3-kpi-label">{label}</div>
       <div
-        className={`mt-1 text-xl font-semibold tabular-nums ${
-          warn ? "text-amber-700" : accent ? "text-brand" : "text-gray-900"
-        }`}
+        className="v3-kpi-value"
+        style={
+          warn
+            ? { color: "#b45309" }
+            : accent
+              ? { color: "var(--a)" }
+              : undefined
+        }
       >
         {value}
       </div>
@@ -290,7 +287,14 @@ function Kpi({
 }
 
 function Empty({ message }: { message: string }) {
-  return <div className="py-8 text-center text-sm text-gray-500">{message}</div>;
+  return (
+    <div
+      className="v3-muted"
+      style={{ padding: "32px 0", textAlign: "center", fontSize: 13 }}
+    >
+      {message}
+    </div>
+  );
 }
 
 function ActionDot({ action }: { action: string }) {

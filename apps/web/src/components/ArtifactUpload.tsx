@@ -39,11 +39,11 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="card p-4 space-y-3 text-sm">
-      <h3 className="section-title">Upload artifact</h3>
+    <div className="v3-card v3-card-pad space-y-3 text-sm">
+      <h3 className="v3-label-uc">Upload artifact</h3>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <select
-          className="input"
+          className="v3-input"
           value={type}
           onChange={(e) => setType(e.target.value as (typeof TYPES)[number])}
         >
@@ -56,7 +56,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         <input ref={fileRef} type="file" className="md:col-span-2" />
       </div>
       {error && <div className="text-red-600">{error}</div>}
-      <button onClick={submit} disabled={pending} className="btn-primary">
+      <button onClick={submit} disabled={pending} className="v3-btn-primary">
         {pending ? "Uploading…" : "Upload"}
       </button>
     </div>

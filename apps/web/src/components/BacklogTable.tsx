@@ -77,18 +77,18 @@ export function BacklogTable({ rows }: { rows: BacklogRow[] }) {
   return (
     <div className="space-y-4">
       {/* Filter bar */}
-      <div className="card p-3 space-y-3">
+      <div className="v3-card v3-card-pad space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search title, champion, BU…"
-            className="input flex-1 min-w-[12rem]"
+            className="v3-input flex-1 min-w-[12rem]"
           />
           <select
             value={buFilter ?? ""}
             onChange={(e) => setBuFilter(e.target.value || null)}
-            className="input w-40"
+            className="v3-sort-select w-40"
           >
             <option value="">All business units</option>
             {allBus.map((b) => (
@@ -112,7 +112,9 @@ export function BacklogTable({ rows }: { rows: BacklogRow[] }) {
               onClick={() => setTierFilter(tierFilter === t ? null : t)}
             />
           ))}
-          <span className="mx-2 h-4 w-px bg-surface-border" />
+          <span
+            style={{ width: 1, height: 22, background: "var(--hairline)", margin: "0 6px" }}
+          />
           <FilterChip
             label="All statuses"
             active={statusGroup === null}
@@ -129,79 +131,78 @@ export function BacklogTable({ rows }: { rows: BacklogRow[] }) {
             />
           ))}
         </div>
-        <div className="flex items-center justify-between text-xs text-gray-500">
+        <div className="v3-muted flex items-center justify-between" style={{ fontSize: 12 }}>
           <span>
             {filtered.length} project{filtered.length === 1 ? "" : "s"}
             {filtered.length !== rows.length ? ` of ${rows.length}` : ""}
           </span>
           <span>
             Annualized $:{" "}
-            <span className="font-medium text-gray-900">
+            <span className="mono" style={{ fontWeight: 600, color: "var(--ink)" }}>
               {formatUsd(totalAnnual)}
             </span>
           </span>
         </div>
       </div>
 
-      <div className="card overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-surface-subtle text-left text-xs uppercase tracking-wider text-gray-500">
+      <div className="v3-card" style={{ overflow: "hidden" }}>
+        <table className="v3-data-table">
+          <thead>
             <tr>
-              <th className="px-4 py-3">Project</th>
-              <th className="px-4 py-3">BU</th>
-              <th className="px-4 py-3">Tier</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Champion</th>
-              <th className="px-4 py-3 text-right">Annualized $</th>
-              <th className="px-4 py-3 text-right">Updated</th>
+              <th>Project</th>
+              <th>BU</th>
+              <th>Tier</th>
+              <th>Status</th>
+              <th>Champion</th>
+              <th className="r">Annualized $</th>
+              <th className="r">Updated</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length > 0 ? (
               filtered.map((p) => (
-                <tr
-                  key={p.id}
-                  className="border-t border-surface-border transition-colors hover:bg-surface-subtle"
-                >
-                  <td className="px-4 py-3">
-                    <Link
-                      href={`/projects/${p.id}`}
-                      className="font-medium text-gray-900 hover:text-brand"
-                    >
+                <tr key={p.id} className="row">
+                  <td data-label="Project" className="cell-title">
+                    <Link href={`/projects/${p.id}`} className="v3-row-title">
                       {p.title}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-gray-700">
-                    {p.businessUnitCode ?? "—"}
-                  </td>
-                  <td className="px-4 py-3">
+                  <td data-label="BU">{p.businessUnitCode ?? "—"}</td>
+                  <td data-label="Tier">
                     <TierBadge tier={p.complexityTier} />
                   </td>
-                  <td className="px-4 py-3">
+                  <td data-label="Status">
                     <StatusBadge status={p.status} />
                   </td>
-                  <td className="px-4 py-3 text-gray-700">
-                    {p.championName ?? <span className="text-gray-400">unassigned</span>}
+                  <td data-label="Champion">
+                    {p.championName ?? (
+                      <span className="v3-muted-2">unassigned</span>
+                    )}
                   </td>
-                  <td className="px-4 py-3 text-right tabular-nums text-gray-700">
+                  <td data-label="Annualized $" className="r">
                     {p.annualSavingsUsd ? formatUsd(p.annualSavingsUsd) : "—"}
                   </td>
-                  <td className="px-4 py-3 text-right text-gray-500">
+                  <td data-label="Updated" className="r">
                     {formatDate(p.updatedAt)}
+                    <span className="row-arrow">→</span>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={7} className="px-4 py-12 text-center text-gray-500">
-                  No projects match the current filters.
+                <td colSpan={7}>
+                  <div className="v3-empty">
+                    <div className="icon">∅</div>
+                    <div className="msg">No projects match the current filters</div>
+                    <div className="sub">Try removing a filter.</div>
+                  </div>
                 </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-      <div className="text-xs text-gray-400 mt-2">
+      <div className="v3-muted-2" style={{ fontSize: 11.5, marginTop: 8 }}>
         Showing {filtered.length} of {rows.length} projects. Status meanings:{" "}
         {STATUS_GROUPS[0].values.map(statusLabel).slice(0, 3).join(", ")}, etc.
       </div>
@@ -222,11 +223,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
-        active
-          ? "bg-brand text-brand-fg"
-          : "bg-surface-subtle text-gray-700 hover:bg-gray-200"
-      }`}
+      className={`v3-chip${active ? " active" : ""}`}
     >
       {label}
     </button>

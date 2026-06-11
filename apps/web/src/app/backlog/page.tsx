@@ -28,17 +28,17 @@ export default async function BacklogPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">Backlog</h1>
+      <header className="v3-page-header flex items-end justify-between" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">Backlog</h1>
         <div className="flex gap-2">
-          <Link href="/api/export/projects.csv" className="btn">
+          <Link href="/api/export/projects.csv" className="v3-btn-outline v3-btn-sm">
             CSV
           </Link>
-          <Link href="/api/export/projects.xlsx" className="btn">
+          <Link href="/api/export/projects.xlsx" className="v3-btn-outline v3-btn-sm">
             XLSX
           </Link>
         </div>
-      </div>
+      </header>
 
       {!projects.ok && <DbDownBanner message={projects.error} />}
 

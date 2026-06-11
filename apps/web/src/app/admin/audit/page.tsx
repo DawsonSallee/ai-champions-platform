@@ -34,44 +34,44 @@ export default async function AuditPage({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold tracking-tight">Audit log</h1>
+      <header className="v3-page-header" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">Audit log</h1>
+      </header>
 
       {!result.ok && <DbDownBanner message={result.error} />}
 
-      <div className="card overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-surface-subtle text-left text-xs uppercase tracking-wider text-gray-500">
+      <div className="v3-card" style={{ overflow: "hidden" }}>
+        <table className="v3-data-table">
+          <thead>
             <tr>
-              <th className="px-3 py-2">When</th>
-              <th className="px-3 py-2">Actor</th>
-              <th className="px-3 py-2">Entity</th>
-              <th className="px-3 py-2">Action</th>
-              <th className="px-3 py-2">Before → After (excerpt)</th>
+              <th>When</th>
+              <th>Actor</th>
+              <th>Entity</th>
+              <th>Action</th>
+              <th>Before → After (excerpt)</th>
             </tr>
           </thead>
           <tbody>
             {result.ok && result.value.length > 0 ? (
               result.value.map((r) => (
-                <tr key={r.e.id} className="border-t border-surface-border align-top">
-                  <td className="px-3 py-2 whitespace-nowrap text-gray-600">
+                <tr key={r.e.id} style={{ verticalAlign: "top" }}>
+                  <td data-label="When" className="v3-muted" style={{ whiteSpace: "nowrap" }}>
                     {formatDate(r.e.occurredAt, "long")}
                   </td>
-                  <td className="px-3 py-2">
+                  <td data-label="Actor">
                     {r.actorName ?? r.actorEmail ?? "system"}
                   </td>
-                  <td className="px-3 py-2">
-                    <div className="font-medium">{r.e.entityType}</div>
-                    <div className="text-xs text-gray-500 font-mono">
-                      {r.e.entityId}
-                    </div>
+                  <td data-label="Entity">
+                    <div style={{ fontWeight: 500 }}>{r.e.entityType}</div>
+                    <div className="v3-row-sub">{r.e.entityId}</div>
                   </td>
-                  <td className="px-3 py-2">
+                  <td data-label="Action">
                     <span className="pill bg-gray-100 text-gray-700">
                       {r.e.action}
                     </span>
                   </td>
-                  <td className="px-3 py-2 text-xs text-gray-600">
-                    <pre className="whitespace-pre-wrap max-w-md">
+                  <td data-label="Diff" className="v3-muted" style={{ fontSize: 11 }}>
+                    <pre className="mono whitespace-pre-wrap max-w-md">
                       {JSON.stringify(
                         {
                           before: r.e.beforeJson,
@@ -86,8 +86,10 @@ export default async function AuditPage({
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="px-3 py-12 text-center text-gray-500">
-                  No events recorded yet.
+                <td colSpan={5}>
+                  <div className="v3-muted" style={{ padding: "48px 0", textAlign: "center", fontSize: 13 }}>
+                    No events recorded yet.
+                  </div>
                 </td>
               </tr>
             )}

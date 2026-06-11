@@ -164,10 +164,10 @@ function Timeline({
 }) {
   if (versions.length === 0) return null;
   return (
-    <div className="card p-5">
+    <div className="v3-card v3-card-pad">
       <div className="mb-3 flex items-baseline justify-between">
-        <h3 className="text-sm font-semibold text-ink">ROI versions</h3>
-        <span className="text-xs text-ink-subtle">
+        <h3 style={{ fontSize: 15, fontWeight: 600 }}>ROI versions</h3>
+        <span className="v3-muted" style={{ fontSize: 12 }}>
           Click Edit on any version — including prior ones — to revise it.
         </span>
       </div>
@@ -233,7 +233,7 @@ function Timeline({
                   type="button"
                   onClick={() => onEdit(v.id)}
                   disabled={isEditing}
-                  className="btn-ghost py-1 px-2 text-xs disabled:opacity-50"
+                  className="v3-btn-ghost v3-btn-sm disabled:opacity-50"
                 >
                   {isEditing ? "Editing" : "Edit"}
                 </button>
@@ -281,7 +281,7 @@ function ReviewDueBanner({
   }
 
   return (
-    <div className="card border-amber-300 bg-amber-50 p-4">
+    <div className="rounded-xl border border-amber-300 bg-amber-50 p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="text-sm font-semibold text-amber-900">Review due</div>
@@ -294,7 +294,7 @@ function ReviewDueBanner({
             out a year.
           </p>
         </div>
-        <button onClick={pushOutOneYear} disabled={pending} className="btn">
+        <button onClick={pushOutOneYear} disabled={pending} className="v3-btn-outline">
           {pending ? "Saving…" : "Push out 1 year"}
         </button>
       </div>
@@ -368,7 +368,7 @@ function VersionEditor({
   }
 
   return (
-    <section className="card p-5 space-y-4">
+    <section className="v3-card v3-card-pad space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <h3 className="text-sm font-semibold text-ink">
@@ -383,7 +383,7 @@ function VersionEditor({
             . Rates resolve as of this version's period start, not today.
           </p>
         </div>
-        <button onClick={save} disabled={pending} className="btn-primary">
+        <button onClick={save} disabled={pending} className="v3-btn-primary">
           {pending ? "Saving…" : "Save changes"}
         </button>
       </div>
@@ -396,10 +396,10 @@ function VersionEditor({
         />
         {isActive ? (
           <label className="block">
-            <div className="label mb-1">Next review date</div>
+            <div className="v3-label-uc mb-1">Next review date</div>
             <input
               type="date"
-              className="input"
+              className="v3-input"
               value={reviewDate}
               min={today}
               onChange={(e) => setReviewDate(e.target.value)}
@@ -488,7 +488,7 @@ function FirstVersionForm({
   }
 
   return (
-    <section className="card p-5 space-y-4">
+    <section className="v3-card v3-card-pad space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <h3 className="text-sm font-semibold text-ink">
@@ -498,26 +498,26 @@ function FirstVersionForm({
             Hourly rates resolve as of the period start.
           </p>
         </div>
-        <button onClick={save} disabled={pending} className="btn-primary">
+        <button onClick={save} disabled={pending} className="v3-btn-primary">
           {pending ? "Saving…" : "Save V1"}
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <label className="block">
-          <div className="label mb-1">Period start</div>
+          <div className="v3-label-uc mb-1">Period start</div>
           <input
             type="date"
-            className="input"
+            className="v3-input"
             value={periodStart}
             onChange={(e) => setPeriodStart(e.target.value)}
           />
         </label>
         <label className="block">
-          <div className="label mb-1">Next review date</div>
+          <div className="v3-label-uc mb-1">Next review date</div>
           <input
             type="date"
-            className="input"
+            className="v3-input"
             value={reviewDate}
             onChange={(e) => setReviewDate(e.target.value)}
           />
@@ -608,14 +608,22 @@ function NewVersionForm({
 
   if (!open) {
     return (
-      <div className="rounded-lg border border-dashed border-surface-border bg-surface-subtle p-4 text-center">
+      <div
+        className="p-4 text-center"
+        style={{
+          border: "1px dashed var(--hairline-strong)",
+          borderRadius: 10,
+          background: "var(--bg-sunken)",
+        }}
+      >
         <button
           onClick={() => setOpen(true)}
-          className="text-sm font-medium text-brand hover:underline"
+          className="link"
+          style={{ fontSize: 13, fontWeight: 500 }}
         >
           + Create new version ({nextLabel})
         </button>
-        <p className="mt-1 text-xs text-ink-subtle">
+        <p className="v3-muted mt-1" style={{ fontSize: 11.5 }}>
           The current version's period ends on the new version's start date.
         </p>
       </div>
@@ -623,7 +631,7 @@ function NewVersionForm({
   }
 
   return (
-    <section className="card p-5 space-y-4 border-brand">
+    <section className="v3-card v3-card-pad space-y-4" style={{ borderColor: "var(--a)" }}>
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <h3 className="text-sm font-semibold text-ink">Create {nextLabel}</h3>
@@ -633,10 +641,10 @@ function NewVersionForm({
           </p>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => setOpen(false)} className="btn">
+          <button onClick={() => setOpen(false)} className="v3-btn-outline">
             Cancel
           </button>
-          <button onClick={save} disabled={pending} className="btn-primary">
+          <button onClick={save} disabled={pending} className="v3-btn-primary">
             {pending ? "Saving…" : `Save ${nextLabel}`}
           </button>
         </div>
@@ -644,22 +652,22 @@ function NewVersionForm({
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <label className="block">
-          <div className="label mb-1">
+          <div className="v3-label-uc mb-1">
             Period start (closes {previousVersion.versionLabel})
           </div>
           <input
             type="date"
-            className="input"
+            className="v3-input"
             value={periodStart}
             min={previousVersion.periodStart}
             onChange={(e) => setPeriodStart(e.target.value)}
           />
         </label>
         <label className="block">
-          <div className="label mb-1">Next review date</div>
+          <div className="v3-label-uc mb-1">Next review date</div>
           <input
             type="date"
-            className="input"
+            className="v3-input"
             value={reviewDate}
             onChange={(e) => setReviewDate(e.target.value)}
           />
@@ -714,40 +722,40 @@ function StepsGrid({
 
   return (
     <div>
-      <div className="card overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-surface-subtle text-left text-[11px] uppercase tracking-wider text-ink-subtle">
+      <div className="v3-card overflow-x-auto">
+        <table className="v3-data-table">
+          <thead>
             <tr>
-              <th className="px-3 py-2 w-8">#</th>
-              <th className="px-3 py-2 min-w-[200px]">Step</th>
-              <th className="px-3 py-2 min-w-[180px]">Role</th>
-              <th className="px-3 py-2 text-right">Freq/yr</th>
-              <th className="px-3 py-2 text-right">Baseline hrs</th>
-              <th className="px-3 py-2 text-right">New hrs</th>
-              <th className="px-3 py-2 text-right">Quality hrs</th>
-              <th className="px-3 py-2 text-right">Rate</th>
-              <th className="px-3 py-2 text-right">$ saved</th>
-              <th className="px-3 py-2 text-right">Eff.</th>
-              <th className="px-3 py-2"></th>
+              <th className="w-8">#</th>
+              <th className="min-w-[200px]">Step</th>
+              <th className="min-w-[180px]">Role</th>
+              <th className="r">Freq/yr</th>
+              <th className="r">Baseline hrs</th>
+              <th className="r">New hrs</th>
+              <th className="r">Quality hrs</th>
+              <th className="r">Rate</th>
+              <th className="r">$ saved</th>
+              <th className="r">Eff.</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {steps.map((s, i) => {
               const r = preview.steps[i];
               return (
-                <tr key={i} className="border-t border-surface-divider">
-                  <td className="px-3 py-2 text-ink-soft">{i + 1}</td>
-                  <td className="px-3 py-2">
+                <tr key={i}>
+                  <td className="v3-muted-2">{i + 1}</td>
+                  <td>
                     <input
-                      className="input"
+                      className="v3-input"
                       value={s.name}
                       onChange={(e) => update(i, { name: e.target.value })}
                       placeholder="e.g. Extract invoice fields"
                     />
                   </td>
-                  <td className="px-3 py-2">
+                  <td>
                     <select
-                      className="input"
+                      className="v3-input"
                       value={s.roleCode}
                       onChange={(e) => update(i, { roleCode: e.target.value })}
                     >
@@ -759,44 +767,44 @@ function StepsGrid({
                       ))}
                     </select>
                   </td>
-                  <td className="px-3 py-2">
+                  <td>
                     <input
                       type="number"
                       step="0.01"
-                      className="input text-right"
+                      className="v3-input text-right"
                       value={s.freqPerYear}
                       onChange={(e) =>
                         update(i, { freqPerYear: Number(e.target.value) })
                       }
                     />
                   </td>
-                  <td className="px-3 py-2">
+                  <td>
                     <input
                       type="number"
                       step="0.01"
-                      className="input text-right"
+                      className="v3-input text-right"
                       value={s.baselineHours}
                       onChange={(e) =>
                         update(i, { baselineHours: Number(e.target.value) })
                       }
                     />
                   </td>
-                  <td className="px-3 py-2">
+                  <td>
                     <input
                       type="number"
                       step="0.01"
-                      className="input text-right"
+                      className="v3-input text-right"
                       value={s.newHours}
                       onChange={(e) =>
                         update(i, { newHours: Number(e.target.value) })
                       }
                     />
                   </td>
-                  <td className="px-3 py-2">
+                  <td>
                     <input
                       type="number"
                       step="0.01"
-                      className="input text-right"
+                      className="v3-input text-right"
                       value={s.qualityIncreaseHours}
                       onChange={(e) =>
                         update(i, {
@@ -805,18 +813,18 @@ function StepsGrid({
                       }
                     />
                   </td>
-                  <td className="px-3 py-2 text-right text-ink-muted">
+                  <td className="r v3-muted">
                     {rateLookup[s.roleCode]
                       ? formatUsd(rateLookup[s.roleCode])
                       : "—"}
                   </td>
-                  <td className="px-3 py-2 text-right font-medium">
+                  <td className="r" style={{ fontWeight: 600 }}>
                     {formatUsd(r.annualSavedUsd)}
                   </td>
-                  <td className="px-3 py-2 text-right">
+                  <td className="r">
                     {formatPct(r.efficiencyGainPct)}
                   </td>
-                  <td className="px-3 py-2 text-right">
+                  <td className="r">
                     <button
                       onClick={() => remove(i)}
                       className="text-xs text-rose-600 hover:underline"
@@ -831,7 +839,7 @@ function StepsGrid({
         </table>
       </div>
       <div className="mt-2 text-right">
-        <button onClick={add} className="btn">
+        <button onClick={add} className="v3-btn-outline">
           + Add step
         </button>
       </div>
@@ -875,14 +883,11 @@ function Kpi({
   accent?: boolean;
 }) {
   return (
-    <div className="card p-4">
-      <div className="text-[11px] uppercase tracking-wider text-ink-subtle">
-        {label}
-      </div>
+    <div className="v3-kpi">
+      <div className="v3-kpi-label">{label}</div>
       <div
-        className={`mt-1 text-xl font-semibold tabular-nums ${
-          accent ? "text-brand" : "text-ink"
-        }`}
+        className="v3-kpi-value"
+        style={accent ? { color: "var(--a)" } : undefined}
       >
         {value}
       </div>
@@ -893,8 +898,8 @@ function Kpi({
 function Readonly({ label, value }: { label: string; value: string }) {
   return (
     <div className="block">
-      <div className="label mb-1">{label}</div>
-      <div className="input flex items-center text-ink-muted">{value}</div>
+      <div className="v3-label-uc mb-1">{label}</div>
+      <div className="v3-input flex items-center v3-muted">{value}</div>
     </div>
   );
 }

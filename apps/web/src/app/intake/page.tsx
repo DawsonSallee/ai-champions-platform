@@ -10,13 +10,13 @@ export default async function IntakePage() {
   const bus = await safe(async () => db.select().from(businessUnits));
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">New intake</h1>
-        <p className="mt-1 text-sm text-gray-500">
+      <header className="v3-page-header" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">New intake</h1>
+        <p className="v3-subhead">
           Answer the wizard. Tier is assigned deterministically from your
           answers and recorded so an auditor can see why.
         </p>
-      </div>
+      </header>
       {!bus.ok && <DbDownBanner message={bus.error} />}
       <IntakeWizard businessUnits={bus.ok ? bus.value : []} />
     </div>

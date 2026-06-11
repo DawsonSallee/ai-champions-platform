@@ -48,17 +48,17 @@ export function UatForm({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="card p-4 space-y-3 text-sm">
-      <h3 className="section-title">Add UAT entry</h3>
+    <div className="v3-card v3-card-pad space-y-3 text-sm">
+      <h3 className="v3-label-uc">Add UAT entry</h3>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <input
-          className="input"
+          className="v3-input"
           placeholder="Test case ID (e.g. UAT-001)"
           value={state.testCaseId}
           onChange={(e) => setState({ ...state, testCaseId: e.target.value })}
         />
         <select
-          className="input"
+          className="v3-input"
           value={state.phase}
           onChange={(e) =>
             setState({ ...state, phase: e.target.value as "InternalQA" | "BusinessUAT" })
@@ -68,7 +68,7 @@ export function UatForm({ projectId }: { projectId: string }) {
           <option value="BusinessUAT">Business UAT</option>
         </select>
         <select
-          className="input"
+          className="v3-input"
           value={state.result}
           onChange={(e) =>
             setState({ ...state, result: e.target.value as typeof state.result })
@@ -105,7 +105,7 @@ export function UatForm({ projectId }: { projectId: string }) {
         onChange={(e) => setState({ ...state, actual: e.target.value })}
       />
       {error && <div className="text-red-600">{error}</div>}
-      <button onClick={submit} disabled={pending} className="btn-primary">
+      <button onClick={submit} disabled={pending} className="v3-btn-primary">
         {pending ? "Adding…" : "Add entry"}
       </button>
     </div>

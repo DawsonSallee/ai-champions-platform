@@ -10,16 +10,31 @@ export default function SignInPage() {
 
   return (
     <div className="mx-auto max-w-md py-24">
-      <div className="card p-8 space-y-6 text-center">
-        <div className="mx-auto h-12 w-12 rounded bg-brand text-brand-fg grid place-items-center font-bold text-xl">
+      <div className="v3-card v3-card-pad space-y-6 text-center" style={{ padding: 32 }}>
+        <div
+          className="mx-auto grid place-items-center"
+          style={{
+            height: 48,
+            width: 48,
+            borderRadius: 10,
+            background: "var(--a)",
+            color: "var(--a-fg)",
+            fontWeight: 700,
+            fontSize: 20,
+          }}
+        >
           AI
         </div>
-        <h1 className="text-xl font-semibold">Sign in</h1>
-        <p className="text-sm text-gray-500">
+        <h1 style={{ fontSize: 20, fontWeight: 600 }}>Sign in</h1>
+        <p className="v3-muted" style={{ fontSize: 13 }}>
           Use your organization account to access the AI Champions Platform.
         </p>
         <form action={go}>
-          <button className="btn-primary w-full justify-center" type="submit">
+          <button
+            className="v3-btn-primary"
+            style={{ width: "100%", justifyContent: "center" }}
+            type="submit"
+          >
             Sign in with Microsoft
           </button>
         </form>

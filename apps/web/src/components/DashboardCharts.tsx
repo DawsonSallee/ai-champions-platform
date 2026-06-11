@@ -14,8 +14,8 @@ import {
   YAxis,
 } from "recharts";
 
-const BRAND = "#4f46e5";
-const BRAND_LIGHT = "#6366f1";
+const BRAND = "#7c2d2d";
+const BRAND_LIGHT = "#a14747";
 
 export function RealizedTrendChart({
   data,

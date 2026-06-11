@@ -91,27 +91,27 @@ export default async function AdminPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">Admin</h1>
+      <header className="v3-page-header flex flex-wrap items-end justify-between gap-3" style={{ marginBottom: 0 }}>
+        <h1 className="v3-headline">Admin</h1>
         <div className="flex flex-wrap gap-2">
           {CHAMPIONS_GROUP_URL && (
             <a
               href={CHAMPIONS_GROUP_URL}
               target="_blank"
               rel="noreferrer"
-              className="btn"
+              className="v3-btn-outline v3-btn-sm"
             >
               Microsoft Group ↗
             </a>
           )}
-          <Link href="/admin/audit" className="btn">
+          <Link href="/admin/audit" className="v3-btn-outline v3-btn-sm">
             Audit log
           </Link>
-          <Link href="/admin/trash" className="btn">
+          <Link href="/admin/trash" className="v3-btn-outline v3-btn-sm">
             Trash
           </Link>
         </div>
-      </div>
+      </header>
 
       {!data.ok && <DbDownBanner message={data.error} />}
 
@@ -150,11 +150,18 @@ function ChampionsSection({
   );
 
   return (
-    <section className="card overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-surface-border bg-surface-subtle px-5 py-3">
+    <section className="v3-card" style={{ overflow: "hidden" }}>
+      <header
+        className="flex flex-wrap items-center justify-between gap-3"
+        style={{
+          borderBottom: "1px solid var(--hairline)",
+          background: "var(--bg-sunken)",
+          padding: "12px 20px",
+        }}
+      >
         <div>
-          <h2 className="text-sm font-semibold text-gray-900">Champions</h2>
-          <div className="text-xs text-gray-500">
+          <h2 style={{ fontSize: 15, fontWeight: 600 }}>Champions</h2>
+          <div className="v3-muted" style={{ fontSize: 12 }}>
             {champions.length} active · {totalActive} in-flight projects ·{" "}
             {totalCompleted} completed
           </div>
@@ -164,47 +171,45 @@ function ChampionsSection({
             href={CHAMPIONS_GROUP_URL}
             target="_blank"
             rel="noreferrer"
-            className="text-xs text-brand hover:underline"
+            className="link"
+            style={{ fontSize: 12 }}
           >
             Manage in Microsoft Group ↗
           </a>
         )}
       </header>
       {champions.length === 0 ? (
-        <div className="p-8 text-center text-sm text-gray-500">
+        <div className="v3-muted" style={{ padding: 32, textAlign: "center", fontSize: 13 }}>
           No champions yet. Assign the Champion app role to users in Entra ID.
         </div>
       ) : (
-        <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-gray-500">
+        <table className="v3-data-table">
+          <thead>
             <tr>
-              <th className="px-5 py-2">Champion</th>
-              <th className="px-5 py-2">Business unit</th>
-              <th className="px-5 py-2 text-right">Active</th>
-              <th className="px-5 py-2 text-right">Completed</th>
-              <th className="px-5 py-2 text-right">Status</th>
+              <th>Champion</th>
+              <th>Business unit</th>
+              <th className="r">Active</th>
+              <th className="r">Completed</th>
+              <th className="r">Status</th>
             </tr>
           </thead>
           <tbody>
             {champions.map((c) => (
-              <tr key={c.id} className="border-t border-surface-border">
-                <td className="px-5 py-2">
-                  <div className="font-medium text-gray-900">{c.displayName}</div>
-                  <a
-                    href={`mailto:${c.email}`}
-                    className="text-xs text-gray-500 hover:underline"
-                  >
+              <tr key={c.id}>
+                <td data-label="Champion">
+                  <div className="v3-row-title">{c.displayName}</div>
+                  <a href={`mailto:${c.email}`} className="v3-row-sub" style={{ textDecoration: "none" }}>
                     {c.email}
                   </a>
                 </td>
-                <td className="px-5 py-2 text-gray-700">{c.buName ?? "—"}</td>
-                <td className="px-5 py-2 text-right tabular-nums">
+                <td data-label="Business unit">{c.buName ?? "—"}</td>
+                <td data-label="Active" className="r">
                   {c.activeCount}
                 </td>
-                <td className="px-5 py-2 text-right tabular-nums">
+                <td data-label="Completed" className="r">
                   {c.completedCount}
                 </td>
-                <td className="px-5 py-2 text-right">
+                <td data-label="Status" className="r">
                   <span
                     className={`pill ${
                       c.active
@@ -259,12 +264,16 @@ function ApprovalsConfigSection({
   }));
 
   return (
-    <section className="card">
-      <header className="border-b border-surface-border bg-surface-subtle px-5 py-3">
-        <h2 className="text-sm font-semibold text-gray-900">
-          Approvals configuration
-        </h2>
-        <div className="text-xs text-gray-500">
+    <section className="v3-card" style={{ overflow: "hidden" }}>
+      <header
+        style={{
+          borderBottom: "1px solid var(--hairline)",
+          background: "var(--bg-sunken)",
+          padding: "12px 20px",
+        }}
+      >
+        <h2 style={{ fontSize: 15, fontWeight: 600 }}>Approvals configuration</h2>
+        <div className="v3-muted" style={{ fontSize: 12 }}>
           Which reviewer roles are required at which tier, and who fills those
           roles. Edit here to change personnel.
         </div>

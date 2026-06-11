@@ -98,21 +98,22 @@ export function IntakeWizard({
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="space-y-6 lg:col-span-2">
-        <section className="card p-5 space-y-3">
-          <h2 className="section-title">Project</h2>
+        <section className="v3-card v3-card-pad space-y-3">
+          <h2 style={{ fontSize: 15, fontWeight: 600 }}>Project</h2>
           <div>
-            <label className="label">Title</label>
+            <label className="v3-label-uc">Title</label>
             <input
-              className="input mt-1"
+              className="v3-input mt-1"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Invoice intake bot for Accounts Payable"
             />
           </div>
           <div>
-            <label className="label">Business unit</label>
+            <label className="v3-label-uc">Business unit</label>
             <select
-              className="input mt-1"
+              className="v3-sort-select mt-1"
+              style={{ width: "100%" }}
               value={buCode}
               onChange={(e) => setBuCode(e.target.value)}
             >
@@ -124,9 +125,9 @@ export function IntakeWizard({
             </select>
           </div>
           <div>
-            <label className="label">Problem statement</label>
+            <label className="v3-label-uc">Problem statement</label>
             <textarea
-              className="input mt-1"
+              className="v3-input mt-1"
               rows={3}
               value={problem}
               onChange={(e) => setProblem(e.target.value)}
@@ -136,13 +137,16 @@ export function IntakeWizard({
         </section>
 
         {Q_GROUPS.map((group) => (
-          <section key={group.title} className="card p-5">
-            <h2 className="section-title mb-3">{group.title}</h2>
+          <section key={group.title} className="v3-card v3-card-pad">
+            <h2 style={{ fontSize: 15, fontWeight: 600, marginBottom: 12 }}>
+              {group.title}
+            </h2>
             <div className="space-y-2">
               {group.items.map((it) => (
                 <label
                   key={it.key}
-                  className="flex items-start gap-3 rounded p-2 hover:bg-surface-subtle"
+                  className="flex items-start gap-3 rounded p-2"
+                  style={{ cursor: "pointer" }}
                 >
                   <input
                     type="checkbox"
@@ -152,10 +156,12 @@ export function IntakeWizard({
                       setA((prev) => ({ ...prev, [it.key]: e.target.checked }))
                     }
                   />
-                  <span className="text-sm">
-                    <span className="font-medium">{it.label}</span>
+                  <span style={{ fontSize: 13 }}>
+                    <span style={{ fontWeight: 500 }}>{it.label}</span>
                     {"help" in it && it.help ? (
-                      <span className="block text-gray-500">{it.help}</span>
+                      <span className="v3-muted" style={{ display: "block" }}>
+                        {it.help}
+                      </span>
                     ) : null}
                   </span>
                 </label>
@@ -166,21 +172,26 @@ export function IntakeWizard({
       </div>
 
       <aside className="lg:col-span-1">
-        <div className="card p-5 sticky top-6 space-y-4">
+        <div className="v3-card v3-card-pad sticky top-6 space-y-4">
           <div>
-            <div className="label">Assigned tier</div>
+            <div className="v3-label-uc">Assigned tier</div>
             <div className="mt-2 flex items-center gap-3">
               <TierBadge tier={decision.tier} className="text-base px-3 py-1" />
             </div>
           </div>
           <div>
-            <div className="label">Why</div>
-            <p className="mt-1 text-sm text-gray-700">{decision.rationale}</p>
+            <div className="v3-label-uc">Why</div>
+            <p className="mt-1" style={{ fontSize: 13, color: "var(--ink-2)" }}>
+              {decision.rationale}
+            </p>
           </div>
           {decision.triggers.length > 0 && (
             <div>
-              <div className="label">Triggers</div>
-              <ul className="mt-1 list-disc pl-5 text-sm text-gray-700">
+              <div className="v3-label-uc">Triggers</div>
+              <ul
+                className="mt-1 list-disc pl-5"
+                style={{ fontSize: 13, color: "var(--ink-2)" }}
+              >
                 {decision.triggers.map((t) => (
                   <li key={t}>{t}</li>
                 ))}
@@ -192,16 +203,17 @@ export function IntakeWizard({
               {error}
             </div>
           )}
-          <div className="border-t border-surface-border pt-4">
+          <div style={{ borderTop: "1px solid var(--hairline)", paddingTop: 16 }}>
             <button
               type="button"
               onClick={onSubmit}
-              className="btn-primary w-full justify-center"
+              className="v3-btn-primary"
+              style={{ width: "100%", justifyContent: "center" }}
               disabled={!title.trim() || !buCode || pending}
             >
               {pending ? "Submitting…" : "Submit intake"}
             </button>
-            <p className="mt-2 text-xs text-gray-500">
+            <p className="v3-muted mt-2" style={{ fontSize: 11.5 }}>
               Submission opens the approval gate for Tier 1C / 2 / 3, or routes
               straight to build for Tier 1A / 1B.
             </p>

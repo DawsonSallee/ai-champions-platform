@@ -9,7 +9,7 @@ export function TrashRestoreButton({ id }: { id: string }) {
   const [pending, start] = useTransition();
   return (
     <button
-      className="btn"
+      className="v3-btn-outline v3-btn-sm"
       disabled={pending}
       onClick={() =>
         start(async () => {

@@ -4,8 +4,6 @@
 
 :root {
   color-scheme: light;
-  --font-inter: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    sans-serif;
 }
 
 html {
@@ -14,10 +12,10 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+/* The .v3-root wrapper (site.css) owns the page background, base color, and
+   font. body just provides a matching backdrop behind it. */
 body {
-  background: theme("colors.surface.page");
-  color: theme("colors.ink.DEFAULT");
-  font-feature-settings: "cv11", "ss01", "ss03";
+  background: #fafaf8;
 }
 
 /* Tabular numerals everywhere a `tabular-nums` modifier appears. */

@@ -100,20 +100,21 @@ export function TierMatrixEditor({
       {/* Matrix grid */}
       <div>
         <div className="mb-2 flex items-baseline justify-between">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-            Required reviewers by tier
-          </h3>
-          <span className="text-xs text-gray-500">
+          <h3 className="v3-label-uc">Required reviewers by tier</h3>
+          <span className="v3-muted" style={{ fontSize: 12 }}>
             Click a cell to toggle. SLA in business days.
           </span>
         </div>
-        <div className="overflow-x-auto rounded-lg border border-surface-border">
-          <table className="w-full text-sm">
-            <thead className="bg-surface-subtle text-left text-xs uppercase tracking-wider text-gray-500">
+        <div
+          className="overflow-x-auto"
+          style={{ border: "1px solid var(--hairline)", borderRadius: 10 }}
+        >
+          <table className="v3-data-table">
+            <thead>
               <tr>
-                <th className="px-3 py-2">Reviewer role</th>
+                <th>Reviewer role</th>
                 {TIER_ORDER.map((t) => (
-                  <th key={t} className="px-3 py-2 text-center">
+                  <th key={t} style={{ textAlign: "center" }}>
                     Tier {t}
                   </th>
                 ))}
@@ -121,27 +122,36 @@ export function TierMatrixEditor({
             </thead>
             <tbody>
               {reviewerRoles.map((rr) => (
-                <tr key={rr.code} className="border-t border-surface-border">
-                  <td className="px-3 py-2 font-medium">{rr.displayName}</td>
+                <tr key={rr.code}>
+                  <td style={{ fontWeight: 500 }}>{rr.displayName}</td>
                   {TIER_ORDER.map((t) => {
                     const row = grid.get(`${t}::${rr.code}`);
                     return (
-                      <td key={t} className="px-3 py-2 text-center">
+                      <td key={t} style={{ textAlign: "center" }}>
                         <button
                           type="button"
                           onClick={() => toggle(t, rr.code)}
                           disabled={pending}
-                          className={`mx-auto block h-6 w-6 rounded-full border ${
+                          className="mx-auto block h-6 w-6 rounded-full"
+                          style={
                             row
-                              ? "border-brand bg-brand text-brand-fg"
-                              : "border-surface-border bg-surface text-transparent hover:border-gray-400"
-                          }`}
+                              ? {
+                                  border: "1px solid var(--a)",
+                                  background: "var(--a)",
+                                  color: "var(--a-fg)",
+                                }
+                              : {
+                                  border: "1px solid var(--hairline-strong)",
+                                  background: "var(--surface)",
+                                  color: "transparent",
+                                }
+                          }
                           title={row ? "Required — click to remove" : "Click to require"}
                         >
                           ✓
                         </button>
                         {row && (
-                          <div className="mt-1 flex items-center justify-center gap-1 text-[10px] text-gray-500">
+                          <div className="v3-muted mt-1 flex items-center justify-center gap-1" style={{ fontSize: 10 }}>
                             <input
                               type="number"
                               min={1}
@@ -152,7 +162,14 @@ export function TierMatrixEditor({
                                 if (v !== row.sla && v >= 1)
                                   setSla(t, rr.code, v);
                               }}
-                              className="w-10 rounded border border-surface-border bg-white px-1 py-0.5 text-center text-[11px]"
+                              className="mono w-10 text-center"
+                              style={{
+                                border: "1px solid var(--hairline-strong)",
+                                borderRadius: 4,
+                                background: "var(--surface)",
+                                padding: "1px 2px",
+                                fontSize: 11,
+                              }}
                               aria-label={`SLA days for ${rr.displayName} on Tier ${t}`}
                             />
                             <span>d</span>
@@ -170,33 +187,29 @@ export function TierMatrixEditor({
 
       {/* Holders */}
       <div>
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
-          People in reviewer roles
-        </h3>
+        <h3 className="v3-label-uc mb-2">People in reviewer roles</h3>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {reviewerRoles.map((rr) => {
             const list = byRole.get(rr.code) ?? [];
             return (
-              <div
-                key={rr.code}
-                className="rounded-lg border border-surface-border bg-surface p-3"
-              >
+              <div key={rr.code} className="v3-card" style={{ padding: 12 }}>
                 <div className="mb-2 flex items-baseline justify-between">
-                  <div className="font-medium text-sm">{rr.displayName}</div>
-                  <span className="text-xs text-gray-500">
+                  <div style={{ fontWeight: 500, fontSize: 13.5 }}>{rr.displayName}</div>
+                  <span className="v3-muted" style={{ fontSize: 12 }}>
                     {list.length} {list.length === 1 ? "person" : "people"}
                   </span>
                 </div>
                 {list.length === 0 ? (
-                  <div className="text-xs text-gray-500">No holders yet.</div>
+                  <div className="v3-muted" style={{ fontSize: 12 }}>No holders yet.</div>
                 ) : (
-                  <ul className="space-y-1.5 text-sm">
+                  <ul className="space-y-1.5" style={{ fontSize: 13 }}>
                     {list.map((h, i) => (
                       <li key={i} className="flex items-center justify-between">
                         <span>{h.userName}</span>
                         <a
                           href={`mailto:${h.userEmail}`}
-                          className="text-xs text-gray-500 hover:underline"
+                          className="v3-muted"
+                          style={{ fontSize: 12 }}
                         >
                           {h.userEmail}
                         </a>
@@ -208,20 +221,28 @@ export function TierMatrixEditor({
             );
           })}
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-dashed border-surface-border bg-surface-subtle p-3">
-          <span className="text-xs font-medium text-gray-600">Assign:</span>
+        <div
+          className="mt-3 flex flex-wrap items-center gap-2"
+          style={{
+            border: "1px dashed var(--hairline-strong)",
+            borderRadius: 10,
+            background: "var(--bg-sunken)",
+            padding: 12,
+          }}
+        >
+          <span className="v3-muted" style={{ fontSize: 12, fontWeight: 500 }}>Assign:</span>
           <input
             type="email"
-            className="input max-w-[16rem]"
+            className="v3-input max-w-[16rem]"
             placeholder="user@example.com"
             value={newHolder.email}
             onChange={(e) =>
               setNewHolder({ ...newHolder, email: e.target.value })
             }
           />
-          <span className="text-xs text-gray-600">to</span>
+          <span className="v3-muted" style={{ fontSize: 12 }}>to</span>
           <select
-            className="input max-w-[14rem]"
+            className="v3-sort-select max-w-[14rem]"
             value={newHolder.roleCode}
             onChange={(e) =>
               setNewHolder({ ...newHolder, roleCode: e.target.value })
@@ -236,7 +257,7 @@ export function TierMatrixEditor({
           <button
             onClick={assign}
             disabled={pending || !newHolder.email}
-            className="btn-primary"
+            className="v3-btn-primary"
           >
             Add
           </button>
@@ -244,7 +265,7 @@ export function TierMatrixEditor({
       </div>
 
       {error && (
-        <div className="card border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {error}
         </div>
       )}

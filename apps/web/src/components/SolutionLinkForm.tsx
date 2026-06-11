@@ -40,11 +40,11 @@ export function SolutionLinkForm({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="card p-4 space-y-3 text-sm">
-      <h3 className="section-title">Add solution link</h3>
+    <div className="v3-card v3-card-pad space-y-3 text-sm">
+      <h3 className="v3-label-uc">Add solution link</h3>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <select
-          className="input"
+          className="v3-input"
           value={state.linkType}
           onChange={(e) =>
             setState({ ...state, linkType: e.target.value as typeof state.linkType })
@@ -57,20 +57,20 @@ export function SolutionLinkForm({ projectId }: { projectId: string }) {
           ))}
         </select>
         <input
-          className="input md:col-span-2"
+          className="v3-input md:col-span-2"
           placeholder="https://..."
           value={state.url}
           onChange={(e) => setState({ ...state, url: e.target.value })}
         />
       </div>
       <input
-        className="input"
+        className="v3-input"
         placeholder="Label (optional)"
         value={state.label}
         onChange={(e) => setState({ ...state, label: e.target.value })}
       />
       {error && <div className="text-red-600">{error}</div>}
-      <button onClick={submit} disabled={pending || !state.url} className="btn-primary">
+      <button onClick={submit} disabled={pending || !state.url} className="v3-btn-primary">
         {pending ? "Adding…" : "Add link"}
       </button>
     </div>
